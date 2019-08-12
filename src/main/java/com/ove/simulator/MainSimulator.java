@@ -1,20 +1,16 @@
 package com.ove.simulator;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.ove.commandhandler.BlockHandler;
+import com.ove.commandhandler.ExplorerHandler;
+import com.ove.commandhandler.PlaceHandler;
+import com.ove.commandhandler.ReportHandler;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.ove.commandhandler.BlockHandler;
-import com.ove.commandhandler.ExplorerHandler;
-import com.ove.commandhandler.PlaceHandler;
-import com.ove.commandhandler.ReportHandler;
 
 /**
  * A Main Class for Mars Simulator
@@ -85,7 +81,7 @@ public class MainSimulator {
 	/**
 	 * Runs all the commands from the inputManager's queue.
 	 *
-	 * @param inputManager.
+	 * @param inputManager
 	 * @param canvas
 	 *            canvas
 	 *
@@ -134,7 +130,7 @@ public class MainSimulator {
 	 * is 0 or less then an {@link IllegalArgumentException} exception is
 	 * thrown.
 	 *
-	 * @param inputManager.
+	 * @param inputManager
 	 *
 	 * @return true or throws an exception.
 	 */
@@ -201,7 +197,7 @@ public class MainSimulator {
 		if (!contents.isEmpty()) {
 			for (String line : contents) {
 				line = line.trim();
-                if(isPlaceCmdAvailable==null)
+                if(isPlaceCmdAvailable==null || isPlaceCmdAvailable!=true)
                     isPlaceCmdAvailable = line.startsWith("PLACE");
                 if(isPlaceCmdAvailable) {
                     if (line.startsWith("PLACE") || line.startsWith("BLOCK") || line.startsWith("EXPLORE")) {
@@ -230,7 +226,7 @@ public class MainSimulator {
 
 			// Add default place command if not available already.
 			if (!isPlaceCmdAvailable) {
-				//LOG.log(Level.WARNING, "place command not found, adding default COMMAND 'PLACE 0,0'");
+				LOG.log(Level.WARNING, "PLACE command not found, ignoring all commands");
 				//commands.add(0, new InputCommands("PLACE", 0, 0));
 			}
 		}
@@ -240,7 +236,7 @@ public class MainSimulator {
 	/**
 	 * Retrieves the command queue from inputmanager.
 	 *
-	 * @param inputManager.
+	 * @param inputManager
 	 *
 	 * @return command queue
 	 */

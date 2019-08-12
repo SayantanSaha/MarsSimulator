@@ -19,7 +19,7 @@ public class InputManager {
 	private List<InputCommands> commandList;
 	
 	public InputManager(List<InputCommands> commandList) {
-		
+
 		this.commandList = commandList;
 	}
 	
@@ -29,8 +29,12 @@ public class InputManager {
      *
      */
 	public void populateList() {
-		LOG.log(Level.INFO,"Command list has been populated");
-		commandQueue.addAll(commandList);
+		if(commandList.isEmpty())
+			LOG.log(Level.WARNING,"Nothing to populate command list");
+		else {
+			LOG.log(Level.INFO, "Command list has been populated");
+			commandQueue.addAll(commandList);
+		}
 	}
 	
 	
@@ -60,6 +64,6 @@ public class InputManager {
      * @return queue.
      */
 	public Queue<InputCommands> getQueue() {
-        return this.commandQueue;
-    }
+		return this.commandQueue;
+	}
 }
