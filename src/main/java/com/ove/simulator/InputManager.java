@@ -52,7 +52,9 @@ public class InputManager {
 			commandQueue.poll();
 		}else {return true;}
 		}
-		throw new IllegalArgumentException("No Place Command is found");
+        LOG.log(Level.WARNING,"No Place Command is found");
+		return false;
+		//throw new IllegalArgumentException("No Place Command is found");
 	}
 	
 	

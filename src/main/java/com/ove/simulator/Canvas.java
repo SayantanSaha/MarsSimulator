@@ -1,5 +1,8 @@
 package com.ove.simulator;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * 
  * Canvas class to create 2d canvas that will further used to place blocks and
@@ -10,7 +13,7 @@ public class Canvas {
 
 	static int canvasHeight = 5;
 	static int canvasWidth = 5;
-	private static String[][] canvasArray = new String[canvasHeight][canvasWidth];
+	private static String[][] canvasArray = new String[canvasHeight][canvasWidth];private static final Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public void initializeCanvasArray() {
 		for (int i = 0; i < canvasHeight; i++) {
@@ -29,6 +32,8 @@ public class Canvas {
 		HolderType holderType = canvas.getHolderType();
 		if (canvasArray[coordinate.getxAxis()][coordinate.getyAxis()] == "*")
 			canvasArray[coordinate.getxAxis()][coordinate.getyAxis()] = holderType.getCode();
+		else
+			LOG.log(Level.WARNING, "Location ["+coordinate.getxAxis()+","+coordinate.getyAxis()+"] is already blocked");
 	}
 
 	public boolean indexIsAvailable(Coordinates coordinate) {

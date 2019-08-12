@@ -68,7 +68,7 @@ public class MainSimulator {
 
 		// this validation is not handled while create command queue so no
 		// further check needed.
-		// inputManager.checkQueueHeadForPlace();
+		 inputManager.checkQueueHeadForPlace();
 
 		try {
 			sim.runSimulator(inputManager, canvas);
@@ -194,22 +194,24 @@ public class MainSimulator {
 	public List<InputCommands> commandMapper(List<String> contents) throws IllegalAccessException {
 		List<InputCommands> commands = new ArrayList<InputCommands>();
 		Boolean isPlaceCmdAvailable = null;
+
 		if (!contents.isEmpty()) {
 			for (String line : contents) {
 				line = line.trim();
                 if(isPlaceCmdAvailable==null || isPlaceCmdAvailable!=true)
                     isPlaceCmdAvailable = line.startsWith("PLACE");
-                if(isPlaceCmdAvailable) {
+                if(isPlaceCmdAvailable ) {
                     if (line.startsWith("PLACE") || line.startsWith("BLOCK") || line.startsWith("EXPLORE")) {
 
 
                         String[] rowCols = line.split("\\s++");
                         String commandName = rowCols[0];
                         String[] points = rowCols[1].split(",");
-                        commands.add(
-                                new InputCommands(commandName, Integer.parseInt(points[0]), Integer.parseInt(points[1])));
+                        commands.add(new InputCommands(commandName, Integer.parseInt(points[0]), Integer.parseInt(points[1])));
                     } else if (line.startsWith("REPORT")) {
                         commands.add(new InputCommands(line));
+						LOG.log(Level.WARNING, line + " -> REPORT command found, skipping futher commands.");
+						break;
                     } else {
                         LOG.log(Level.WARNING, line + " -> Invalid command found, skipping it and proceeding futher.");
                         /*
