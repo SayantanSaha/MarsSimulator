@@ -52,6 +52,11 @@ public class MainSimulator {
 			return;
 		}
 
+		if(commandList==null || commandList.isEmpty())
+		{
+			LOG.log(Level.WARNING,"PLACE command not found. Ignoring all commands");
+			return;
+		}
 		Canvas canvas = new Canvas();
 		InputManager inputManager = new InputManager(commandList);
 		inputManager.populateList();
